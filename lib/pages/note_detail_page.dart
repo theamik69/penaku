@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../utils/responsive.dart';
+import '../widgets/custom_app_bar.dart';
+import '../widgets/category_chip_widget.dart';
 
 class NoteDetailPage extends StatefulWidget {
   final Map<String, dynamic> note;
@@ -81,26 +83,13 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF9FAFB),
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1F2937)),
-          onPressed: () => Navigator.pop(context),
+      appBar: CustomAppBar(
+        title: 'Detail Catatan',
+        onBackPressed: () => Navigator.pop(context),
+        actions: IconButton(
+          icon: const Icon(Icons.delete, color: Colors.red),
+          onPressed: _deleteNote,
         ),
-        title: const Text(
-          'Detail Catatan',
-          style: TextStyle(
-            color: Color(0xFF1F2937),
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.delete, color: Colors.red),
-            onPressed: _deleteNote,
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -127,6 +116,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 16),
+
                   const Text(
                     'Kategori',
                     style: TextStyle(
@@ -136,38 +126,31 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 10),
+
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
                     children: widget.categories.map((category) {
                       final isSelected =
                       _selectedCategories.contains(category);
-                      return FilterChip(
-                        label: Text(category, style: const TextStyle(fontSize: 13)),
-                        selected: isSelected,
-                        onSelected: (_) {
+                      return CategoryChipWidget(
+                        label: category,
+                        isSelected: isSelected,
+                        onSelected: (selected) {
                           setState(() {
-                            if (isSelected) {
-                              _selectedCategories.remove(category);
-                            } else {
+                            if (selected) {
                               _selectedCategories.clear();
                               _selectedCategories.add(category);
+                            } else {
+                              _selectedCategories.remove(category);
                             }
                           });
                         },
-                        backgroundColor: Colors.white,
-                        selectedColor: Colors.deepOrangeAccent,
-                        labelStyle: TextStyle(
-                          color: isSelected ? Colors.white : Colors.black,
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 10,
-                          vertical: 6,
-                        ),
                       );
                     }).toList(),
                   ),
                   const SizedBox(height: 16),
+
                   const Text(
                     'Isi Catatan',
                     style: TextStyle(
@@ -177,6 +160,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 10),
+
                   TextField(
                     controller: _contentController,
                     maxLines: 8,
@@ -193,6 +177,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                     ),
                   ),
                   const SizedBox(height: 20),
+
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(

@@ -3,6 +3,7 @@ import 'note_detail_page.dart';
 import '../providers/categories_provider.dart';
 import '../providers/user_provider.dart';
 import '../utils/responsive.dart';
+import '../widgets/note_card_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -104,7 +105,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildNoteCard(int index, Map<String, dynamic> note) {
-    return GestureDetector(
+    return NoteCardWidget(
+      title: note['title'] ?? '-',
+      category: note['category'] ?? 'Tanpa Kategori',
+      date: note['date'] ?? '',
+      backgroundColor: note['color'],
       onTap: () {
         final categoryProvider = CategoriesProvider.of(context);
         Navigator.push(
@@ -120,61 +125,6 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-              color: Color.fromARGB(20, 128, 128, 128),
-              blurRadius: 3,
-              offset: const Offset(0, 1),
-            ),
-          ],
-        ),
-        padding: const EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              note['title'] ?? '-',
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Color(0xFF1F2937),
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-            const SizedBox(height: 4),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: (note['color'] ?? Colors.grey).withOpacity(0.2),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                note['category'] ?? 'Tanpa Kategori',
-                style: const TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFF5B6B7F),
-                ),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            const Spacer(),
-            Text(
-              note['date'] ?? '',
-              style: const TextStyle(
-                fontSize: 11,
-                color: Color(0xFF9CA3AF),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 

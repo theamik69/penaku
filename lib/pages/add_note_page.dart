@@ -52,7 +52,9 @@ class _AddNotePageState extends State<AddNotePage> {
       });
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Kategori "$categoryName" ditambahkan')),
+        SnackBar(
+          content: Text('Kategori "$categoryName" ditambahkan'),
+        ),
       );
     }
   }
@@ -60,7 +62,9 @@ class _AddNotePageState extends State<AddNotePage> {
   void _saveDraft() {
     if (_titleController.text.trim().isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Judul tidak boleh kosong')),
+        const SnackBar(
+          content: Text('Judul tidak boleh kosong'),
+        ),
       );
       return;
     }
@@ -90,7 +94,10 @@ class _AddNotePageState extends State<AddNotePage> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF1F2937)),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color(0xFF1F2937),
+          ),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
@@ -106,7 +113,10 @@ class _AddNotePageState extends State<AddNotePage> {
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: maxWidth),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 20,
+                vertical: 16,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -126,6 +136,7 @@ class _AddNotePageState extends State<AddNotePage> {
                     ),
                   ),
                   const SizedBox(height: 16),
+
                   const Text(
                     'Pilih Kategori',
                     style: TextStyle(
@@ -135,6 +146,7 @@ class _AddNotePageState extends State<AddNotePage> {
                     ),
                   ),
                   const SizedBox(height: 10),
+
                   Wrap(
                     spacing: 8,
                     runSpacing: 8,
@@ -142,13 +154,19 @@ class _AddNotePageState extends State<AddNotePage> {
                       final isSelected =
                       _selectedCategories.contains(category);
                       return FilterChip(
-                        label: Text(category, style: const TextStyle(fontSize: 13)),
+                        label: Text(
+                          category,
+                          style: const TextStyle(fontSize: 13),
+                        ),
                         selected: isSelected,
-                        onSelected: (_) => _toggleCategory(category),
+                        onSelected: (_) =>
+                            _toggleCategory(category),
                         backgroundColor: Colors.white,
                         selectedColor: Colors.deepOrangeAccent,
                         labelStyle: TextStyle(
-                          color: isSelected ? Colors.white : Colors.black,
+                          color: isSelected
+                              ? Colors.white
+                              : Colors.black,
                         ),
                         padding: const EdgeInsets.symmetric(
                           horizontal: 10,
@@ -158,6 +176,7 @@ class _AddNotePageState extends State<AddNotePage> {
                     }).toList(),
                   ),
                   const SizedBox(height: 12),
+
                   if (!_showCategoryInput)
                     ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
@@ -168,9 +187,14 @@ class _AddNotePageState extends State<AddNotePage> {
                         ),
                       ),
                       onPressed: () {
-                        setState(() => _showCategoryInput = true);
+                        setState(() => _showCategoryInput =
+                        true);
                       },
-                      icon: const Icon(Icons.add, color: Colors.black, size: 18),
+                      icon: const Icon(
+                        Icons.add,
+                        color: Colors.black,
+                        size: 18,
+                      ),
                       label: const Text(
                         'Tambah Kategori Baru',
                         style: TextStyle(
@@ -184,15 +208,23 @@ class _AddNotePageState extends State<AddNotePage> {
                       children: [
                         Expanded(
                           child: TextField(
-                            controller: _categoryController,
+                            controller:
+                            _categoryController,
                             decoration: InputDecoration(
-                              hintText: 'Nama kategori baru',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
+                              hintText:
+                              'Nama kategori baru',
+                              border:
+                              OutlineInputBorder(
+                                borderRadius:
+                                BorderRadius.circular(
+                                  8,
+                                ),
                               ),
                               filled: true,
                               fillColor: Colors.white,
-                              contentPadding: const EdgeInsets.symmetric(
+                              contentPadding:
+                              const EdgeInsets
+                                  .symmetric(
                                 horizontal: 12,
                                 vertical: 10,
                               ),
@@ -201,21 +233,31 @@ class _AddNotePageState extends State<AddNotePage> {
                         ),
                         const SizedBox(width: 8),
                         IconButton(
-                          icon: const Icon(Icons.check, color: Colors.green),
+                          icon: const Icon(
+                            Icons.check,
+                            color: Colors.green,
+                          ),
                           iconSize: 20,
                           onPressed: _addNewCategory,
                         ),
                         IconButton(
-                          icon: const Icon(Icons.close, color: Colors.red),
+                          icon: const Icon(
+                            Icons.close,
+                            color: Colors.red,
+                          ),
                           iconSize: 20,
                           onPressed: () {
-                            setState(() => _showCategoryInput = false);
-                            _categoryController.clear();
+                            setState(() =>
+                            _showCategoryInput =
+                            false);
+                            _categoryController
+                                .clear();
                           },
                         ),
                       ],
                     ),
                   const SizedBox(height: 16),
+
                   const Text(
                     'Isi Catatan',
                     style: TextStyle(
@@ -225,31 +267,46 @@ class _AddNotePageState extends State<AddNotePage> {
                     ),
                   ),
                   const SizedBox(height: 10),
+
                   TextField(
                     controller: _contentController,
                     maxLines: 8,
                     decoration: InputDecoration(
-                      hintText: 'Tulis insight atau catatan Anda di sini...',
+                      hintText:
+                        'Tulis insight atau '
+                        'catatan Anda di sini...',
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius:
+                        BorderRadius.circular(12),
                       ),
                       filled: true,
                       fillColor: Colors.white,
-                      contentPadding: const EdgeInsets.symmetric(
+                      contentPadding:
+                      const EdgeInsets.symmetric(
                         horizontal: 14,
                         vertical: 12,
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
+
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepOrangeAccent,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                      style:
+                      ElevatedButton.styleFrom(
+                        backgroundColor:
+                        Colors.deepOrangeAccent,
+                        padding:
+                        const EdgeInsets.symmetric(
+                          vertical: 12,
+                        ),
+                        shape:
+                        RoundedRectangleBorder(
+                          borderRadius:
+                          BorderRadius.circular(
+                            12,
+                          ),
                         ),
                       ),
                       onPressed: _saveDraft,
@@ -258,7 +315,8 @@ class _AddNotePageState extends State<AddNotePage> {
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
-                          fontWeight: FontWeight.w600,
+                          fontWeight:
+                          FontWeight.w600,
                         ),
                       ),
                     ),

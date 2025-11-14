@@ -132,6 +132,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final userProvider = UserProvider.of(context);
     final isMobile = Responsive.isMobile(context);
+    final isTablet = Responsive.isTablet(context);
     final gridColumns = Responsive.getGridColumns(context);
 
     return Scaffold(
@@ -212,7 +213,9 @@ class _HomePageState extends State<HomePage> {
                     crossAxisCount: gridColumns,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
-                    childAspectRatio: 4.0,
+                    childAspectRatio: isMobile
+                        ? 4.0
+                        : isTablet ? 1.5 : 3.3,
                   ),
                   itemCount: _notes.length,
                   itemBuilder: (context, index) {

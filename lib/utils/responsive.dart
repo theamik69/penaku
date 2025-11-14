@@ -36,7 +36,7 @@ class Responsive {
     } else if (width >= 1200) {
       return 4;
     } else if (width >= 600) {
-      return 2;
+      return 4;
     } else {
       return 1;
     }
